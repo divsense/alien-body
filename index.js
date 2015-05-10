@@ -44,7 +44,7 @@ var getMessage = function( evt ){
 	try{
 		var req = json.parse( evt.data );
 
-		debugmode && console.log( "alien-body. msg from divsense:", req );
+		debugMode && console.log( "alien-body. msg from divsense:", req );
 
 		var res = {
 			id:		req.id,
@@ -58,7 +58,7 @@ var getMessage = function( evt ){
 
 	}
 	catch(e){
-		debugmode && console.log( "alien-body error. invalid message:", evt.data );
+		debugMode && console.log( "alien-body error. invalid message:", evt.data );
 	}
 
 
