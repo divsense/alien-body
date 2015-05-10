@@ -42,7 +42,7 @@ var getMessage = function( evt ){
 
 
 	try{
-		var req = json.parse( evt.data );
+		var req = JSON.parse( evt.data );
 
 		debugMode && console.log( "alien-body. msg from divsense:", req );
 
@@ -53,7 +53,7 @@ var getMessage = function( evt ){
 		};
 
 		emit( req, res, function(res){
-			evt.source.postmessage( json.stringify( res ), evt.origin );
+			evt.source.postmessage( JSON.stringify( res ), evt.origin );
 		});
 
 	}
