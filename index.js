@@ -44,7 +44,7 @@ var getMessage = function( evt ){
 	try{
 		var req = JSON.parse( evt.data );
 
-		debugMode && console.log( "alien-body. msg from divsense:", req );
+		debugMode && console.log( "ALIEN-BODY. msg from divsense:", req );
 
 		var res = {
 			id:		req.id,
@@ -52,16 +52,22 @@ var getMessage = function( evt ){
 			content: {}
 		};
 
-		emit( req, res, function(res){
-			evt.source.postmessage( JSON.stringify( res ), evt.origin );
-		});
+		emit( req, res, postMsg );
 
 	}
 	catch(e){
-		debugMode && console.log( "alien-body error. invalid message:", evt.data );
+		debugMode && console.log( "ALIEN-BODY error. invalid message:", evt.data );
 	}
 
-
+	function postMsg(r){
+		try{
+			var data = JSON.stringify( r );
+			evt.source.postMessage( data, evt.origin );
+		}
+		catch(e){
+			debugMode && console.log( "ALIEN-BODY error. invalid response:", r );
+		}
+	}
 }
 
 module.exports = function( id, debug ){
