@@ -1,0 +1,17 @@
+{
+  "name": "alien-body",
+  "version": "0.0.1",
+  "description": "Divsense Alien Body",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/divsense/alien-body.git"
+  },
+  "keywords": [
+    "divsense",
+    "mmap"
+  ],
+  "author": "Oleg Kirichenko",
+  "license": "ISC",
+  "homepage": "https://github.com/divsense/alien-body"
+}
