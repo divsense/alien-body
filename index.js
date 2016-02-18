@@ -5,8 +5,8 @@ var debugMode;
 var cache = {};
 
 var source = [
-   	"head",
-   	"channel",
+   	"change",
+   	"signal",
    	];
 
 var on = function( evt, fn ){
@@ -33,7 +33,7 @@ var emit = function( req, res, next ){
 		post( req.source, req, res, next );
 	}
 	else{
-		debugMode && console.log( "ALIEN-BODY ERROR. INVALID METHOD:", req.source );
+		debugMode && console.log( "ALIEN-BODY ERROR. UNKNOWN SOURCE:", req.source );
 	}
 
 }
