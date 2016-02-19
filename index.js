@@ -78,7 +78,7 @@ module.exports = function( id, debug ){
 
 	window.onload = function(){
 		var msg = { id: id, status: "alive" };
-		parent.postMessage( JSON.stringify(msg), "*" );
+		parent.postMessage( JSON.stringify(msg), id );
 	}
 
 	window.addEventListener("message", getMessage, false );
