@@ -74,11 +74,11 @@ module.exports = function( id, debug, origin ){
 
 	debugMode = debug || false;
 
-	debugMode && console.log( "ALIEN-BODY IS UP");
+	debugMode && console.log( "ALIEN-BODY IS UP. [ID:" + id + ", DEBUG: " + debug + ", TARGET ORIGIN: " + origin + "]");
 
 	window.onload = function(){
 		var msg = { id: id, status: "alive" };
-		parent.postMessage( JSON.stringify(msg), origin || "*" );
+		parent.postMessage( JSON.stringify(msg), origin );
 	}
 
 	window.addEventListener("message", getMessage, false );
