@@ -28,12 +28,12 @@ var emit = function( req, res, next ){
 
 	if( source.indexOf( req.source ) !== -1 ) {
 	
-		debugMode && console.log( "ALIEN-BODY EVENT:", req.source, req.method );
+		debugMode && console.log( "ALIEN EVENT:", req.source, req.params );
 
-		post( req.source, req, res, next );
+		post( req.source, req.params, res, next );
 	}
 	else{
-		debugMode && console.log( "ALIEN-BODY ERROR. UNKNOWN SOURCE:", req.source );
+		debugMode && console.log( "ALIEN ERROR. Unknown source:", req.source );
 	}
 
 }
@@ -44,19 +44,17 @@ var getMessage = function( evt ){
 	try{
 		var req = JSON.parse( evt.data );
 
-		debugMode && console.log( "ALIEN-BODY. msg from divsense:", req );
+		debugMode && console.log( "ALIEN. Message from Divsense:", req );
 
 		var res = {
 			id:		req.id,
-			status: "ok",
-			content: {}
 		};
 
 		emit( req, res, postMsg );
 
 	}
 	catch(e){
-		debugMode && console.log( "ALIEN-BODY error. invalid message:", evt.data );
+		debugMode && console.log( "ALIEN ERROR. invalid message:", evt.data );
 	}
 
 	function postMsg(r){
@@ -65,7 +63,7 @@ var getMessage = function( evt ){
 			evt.source.postMessage( data, evt.origin );
 		}
 		catch(e){
-			debugMode && console.log( "ALIEN-BODY error. invalid response:", r );
+			debugMode && console.log( "ALIEN ERROR. invalid response format:", r );
 		}
 	}
 }
@@ -74,10 +72,10 @@ module.exports = function( id, debug, origin ){
 
 	debugMode = debug || false;
 
-	debugMode && console.log( "ALIEN-BODY IS UP. [ID:" + id + ", DEBUG: " + debug + ", TARGET ORIGIN: " + origin + "]");
+	debugMode && console.log( "ALIEN IS UP. [ID:" + id + ", DEBUG: " + debug + ", TARGET ORIGIN: " + origin + "]");
 
 	window.onload = function(){
-		var msg = { id: id, status: "alive" };
+		var msg = { id: id, action: "alive" };
 		parent.postMessage( JSON.stringify(msg), origin );
 	}
 
