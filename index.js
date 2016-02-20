@@ -70,7 +70,7 @@ var getMessage = function( evt ){
 	}
 }
 
-module.exports = function( id, debug ){
+module.exports = function( id, debug, origin ){
 
 	debugMode = debug || false;
 
@@ -78,7 +78,7 @@ module.exports = function( id, debug ){
 
 	window.onload = function(){
 		var msg = { id: id, status: "alive" };
-		parent.postMessage( JSON.stringify(msg), id );
+		parent.postMessage( JSON.stringify(msg), origin || "*" );
 	}
 
 	window.addEventListener("message", getMessage, false );
