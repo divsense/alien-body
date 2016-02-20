@@ -70,13 +70,15 @@ var getMessage = function( evt ){
 
 module.exports = function( id, debug, origin ){
 
+	var targetOrigin = origin || "http://divsense.com";
+
 	debugMode = debug || false;
 
-	debugMode && console.log( "ALIEN IS UP. [ID:" + id + ", DEBUG: " + debug + ", TARGET ORIGIN: " + origin + "]");
+	debugMode && console.log( "ALIEN IS UP. [ID:" + id + ", DEBUG: " + debug + ", TARGET ORIGIN: " + targetOrigin + "]");
 
 	window.onload = function(){
 		var msg = { id: id, action: "alive" };
-		parent.postMessage( JSON.stringify(msg), origin );
+		parent.postMessage( JSON.stringify(msg), targetOrigin );
 	}
 
 	window.addEventListener("message", getMessage, false );
