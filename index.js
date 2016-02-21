@@ -40,10 +40,12 @@ var emit = function( req, res, next ){
 
 var getMessage = function( evt ){
 
+	var req = evt.data;
 
-	try{
-		var req = JSON.parse( evt.data );
-
+	if( !req.id ){
+		debugMode && console.log( "ALIEN ERROR. invalid message:", evt.data );
+	}
+	else{
 		debugMode && console.log( "ALIEN. Message from Divsense:", req );
 
 		var res = {
@@ -53,18 +55,9 @@ var getMessage = function( evt ){
 		emit( req, res, postMsg );
 
 	}
-	catch(e){
-		debugMode && console.log( "ALIEN ERROR. invalid message:", evt.data );
-	}
 
-	function postMsg(r){
-		try{
-			var data = JSON.stringify( r );
-			evt.source.postMessage( data, evt.origin );
-		}
-		catch(e){
-			debugMode && console.log( "ALIEN ERROR. invalid response format:", r );
-		}
+	function postMsg(data){
+		evt.source.postMessage( data, evt.origin );
 	}
 }
 
@@ -78,7 +71,7 @@ module.exports = function( id, debug, origin ){
 
 	window.onload = function(){
 		var msg = { id: id, action: "alive" };
-		parent.postMessage( JSON.stringify(msg), targetOrigin );
+		parent.postMessage( msg, targetOrigin );
 	}
 
 	window.addEventListener("message", getMessage, false );
