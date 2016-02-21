@@ -4,7 +4,7 @@ var debugMode;
 
 var cache = {};
 
-var source = [
+var events = [
    	"change",
    	"signal",
    	];
@@ -26,14 +26,14 @@ var post = function( evt, req, res, next  ){
 
 var emit = function( req, res, next ){
 
-	if( source.indexOf( req.source ) !== -1 ) {
+	if( events.indexOf( req.event ) !== -1 ) {
 	
-		debugMode && console.log( "ALIEN EVENT:", req.source, req.params );
+		debugMode && console.log( "ALIEN EVENT:", req.event, req.params );
 
-		post( req.source, req.params, res, next );
+		post( req.event, req.params, res, next );
 	}
 	else{
-		debugMode && console.log( "ALIEN ERROR. Unknown source:", req.source );
+		debugMode && console.log( "ALIEN ERROR. Unknown event:", req.event );
 	}
 
 }
@@ -70,7 +70,7 @@ module.exports = function( id, debug, origin ){
 	debugMode && console.log( "ALIEN IS UP. [ID:" + id + ", DEBUG: " + debug + ", TARGET ORIGIN: " + targetOrigin + "]");
 
 	window.onload = function(){
-		var msg = { id: id, action: "alive" };
+		var msg = { id: id, action: "recover" };
 		parent.postMessage( msg, targetOrigin );
 	}
 
