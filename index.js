@@ -49,7 +49,7 @@ var getMessage = function( evt ){
 		debugMode && console.log( "ALIEN. Message from Divsense:", req );
 
 		var res = {
-			id:		req.id,
+			id:		req.id
 		};
 
 		emit( req, res, postMsg );
